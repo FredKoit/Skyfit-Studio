@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# PyInstaller output (ship the exe on Nexus or as a GitHub Release, not in git)
+build/
+dist/
+*.spec
+_internal/
+*.exe
+
+# Editors and OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
