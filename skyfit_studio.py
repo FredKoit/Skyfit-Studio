@@ -593,7 +593,7 @@ class ConfigExporters:
 class SkyFitWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("SkyFit Studio v1.0 — Automatic SPID, SkyPatcher & OBody Outfit Distributor")
+        self.setWindowTitle("SkyFit Studio v1.0.1 — Automatic SPID, SkyPatcher & OBody Outfit Distributor")
         self.resize(1480, 900)
         self.setMinimumSize(1160, 820)
         icon_path = Path(getattr(sys, "_MEIPASS", Path(__file__).parent)) / "SkyFitStudio.ico"

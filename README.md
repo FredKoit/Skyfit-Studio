@@ -36,14 +36,28 @@ python skyfit_studio.py
 
 Keep `SkyFitStudio.ico` next to the script; the window icon is loaded from there.
 
-## Building the exe
+## How the release is packaged
 
-```bash
-pip install pyinstaller
-pyinstaller --noconfirm --windowed --name SkyFitStudio --icon SkyFitStudio.ico --add-data "SkyFitStudio.ico;." skyfit_studio.py
+Since v1.0.1 the Nexus release has no custom exe. Compiled Python launchers (PyInstaller and similar) are often flagged by antivirus heuristics, so the release ships the script with the official, signed [Windows embeddable Python](https://www.python.org/downloads/windows/) instead:
+
+```
+SkyFit Studio/
+  SkyFit Studio.bat        start "" "%~dp0python\pythonw.exe" "%~dp0skyfit_studio.py"
+  skyfit_studio.py
+  SkyFitStudio.ico
+  README.txt
+  python/                  python-3.12.10-embed-amd64.zip, extracted
+    python312._pth         adds the line  Lib\site-packages
+    Lib/site-packages/PyQt6/
 ```
 
-The build lands in `dist/SkyFitStudio/`. Ship `SkyFitStudio.exe` together with its `_internal` folder.
+To build it yourself:
+
+1. Extract `python-3.12.10-embed-amd64.zip` into `python/`.
+2. Add `Lib\site-packages` as a new line in `python/python312._pth`.
+3. Copy PyQt6 6.x from a regular Python 3.12 install into `python/Lib/site-packages/PyQt6/`. SkyFit Studio only needs `__init__.py`, `QtCore.pyd`, `QtGui.pyd`, `QtWidgets.pyd` and `sip.cp312-win_amd64.pyd`. From `Qt6/bin` it needs `Qt6Core`, `Qt6Gui`, `Qt6Widgets` and the `msvcp140*` / `vcruntime140*` DLLs. From `Qt6/plugins` it needs `platforms/qwindows.dll`, `styles/qmodernwindowsstyle.dll` and `imageformats/qico.dll`, `qjpeg.dll` and `qgif.dll`.
+
+In MO2, add an executable with the binary `python\pythonw.exe` and the argument `"<folder>\skyfit_studio.py"`.
 
 ## Requirements in game
 
